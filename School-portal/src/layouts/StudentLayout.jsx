@@ -1,26 +1,37 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import TopNav from '../components/TopNav'
 import Sidebar from '../components/Sidebar'
+import TopNav from '../components/TopNav'
 
 const StudentLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  const handleToggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => !prev)
-  }, [])
-
-  const handleNavigateFromSidebar = useCallback(() => {
-    // Close sidebar on small screens after navigation
-    setSidebarOpen(false)
-  }, [])
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <TopNav onToggleSidebar={handleToggleSidebar} sidebarOpen={sidebarOpen} />
-      <div className="flex">
-        <Sidebar open={sidebarOpen} onNavigate={handleNavigateFromSidebar} />
-        <main className="flex-1 p-4 md:p-6 md:ml-0 ml-0">
+    <div className="min-h-screen bg-gray-50 flex overflow-hidden">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <Sidebar
+        open={sidebarOpen}
+        onNavigate={() => setSidebarOpen(false)}
+        portalType="student"
+      />
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <TopNav
+          onToggleSidebar={toggleSidebar}
+          sidebarOpen={sidebarOpen}
+          portalType="student"
+        />
+        <main className="flex-1 overflow-auto">
           <Outlet />
         </main>
       </div>

@@ -2,19 +2,36 @@ import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-const Sidebar = ({ open = true, onNavigate }) => {
+const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { logout } = useAuth()
 
-  const navItems = [
-    { path: '/student', label: 'Home', icon: '🏠' },
-    { path: '/student/grades', label: 'Grades', icon: '📚' },
-    { path: '/student/assignments', label: 'Assignments', icon: '📝' },
-    { path: '/student/resources', label: 'Resources', icon: '📂' },
-    { path: '/student/schedule', label: 'Schedule', icon: '📅' },
-    { path: '/student/reports', label: 'Reports', icon: '📑' },
-  ]
+  // Navigation items based on portal type
+  const getNavItems = () => {
+    if (portalType === 'parent') {
+      return [
+        { path: '/parent', label: 'Home', icon: '🏠' },
+        { path: '/parent/grades', label: 'Grades', icon: '📚' },
+        { path: '/parent/assignments', label: 'Assignments', icon: '📝' },
+        { path: '/parent/balance', label: 'Fee Balance', icon: '💰' },
+        { path: '/parent/communication', label: 'Communication', icon: '💬' },
+        { path: '/parent/reports', label: 'Reports', icon: '📑' },
+      ]
+    }
+    
+    // Default student navigation
+    return [
+      { path: '/student', label: 'Home', icon: '🏠' },
+      { path: '/student/grades', label: 'Grades', icon: '📚' },
+      { path: '/student/assignments', label: 'Assignments', icon: '📝' },
+      { path: '/student/resources', label: 'Resources', icon: '📂' },
+      { path: '/student/schedule', label: 'Schedule', icon: '📅' },
+      { path: '/student/reports', label: 'Reports', icon: '📑' },
+    ]
+  }
+
+  const navItems = getNavItems()
 
   const isActive = (path) => location.pathname === path
 
@@ -30,15 +47,39 @@ const Sidebar = ({ open = true, onNavigate }) => {
     }
   }
 
+  const getPortalTitle = () => {
+    return portalType === 'parent' ? 'Parent Portal' : 'Student Portal'
+  }
+
+  const getUserInfo = () => {
+    if (portalType === 'parent') {
+      return {
+        name: 'Parent',
+        role: 'Guardian',
+        icon: '👨‍👩‍👧‍👦'
+      }
+    }
+    
+    return {
+      name: 'Emma',
+      role: 'Student',
+      icon: '👤'
+    }
+  }
+
+  const userInfo = getUserInfo()
+
   return (
     <aside
-      className={`w-[280px] bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 transition-transform duration-200 ease-in-out ${open ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} md:static md:h-auto`}
+      className={`w-[280px] bg-white border-r border-slate-200 flex flex-col h-screen flex-shrink-0 transition-transform duration-200 ease-in-out z-50 ${
+        open ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0 md:relative md:z-auto`}
       aria-hidden={!open}
       aria-label="Sidebar navigation"
     >
       <div className="p-6 pb-6 border-b border-slate-200">
         <h1 className="text-2xl font-bold text-slate-800 m-0">
-          Student Portal
+          {getPortalTitle()}
         </h1>
       </div>
 
@@ -71,12 +112,12 @@ const Sidebar = ({ open = true, onNavigate }) => {
       <div className="p-6 border-t border-slate-200">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-xl">
-            👤
+            {userInfo.icon}
           </div>
           <div className="flex-1">
-            <div className="font-semibold text-slate-800 text-sm">Emma</div>
+            <div className="font-semibold text-slate-800 text-sm">{userInfo.name}</div>
             <div className="text-slate-500 text-xs uppercase tracking-wider">
-              Student
+              {userInfo.role}
             </div>
           </div>
         </div>
