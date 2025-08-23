@@ -19,7 +19,7 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
         { path: '/parent/reports', label: 'Reports', icon: '📑' },
       ]
     }
-    
+
     // Default student navigation
     return [
       { path: '/student', label: 'Home', icon: '🏠' },
@@ -56,14 +56,14 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
       return {
         name: 'Parent',
         role: 'Guardian',
-        icon: '👨‍👩‍👧‍👦'
+        icon: '👨‍👩‍👧‍👦',
       }
     }
-    
+
     return {
       name: 'Emma',
       role: 'Student',
-      icon: '👤'
+      icon: '👤',
     }
   }
 
@@ -73,7 +73,7 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
     <aside
       className={`w-[280px] bg-white border-r border-slate-200 flex flex-col h-screen flex-shrink-0 transition-transform duration-200 ease-in-out z-50 ${
         open ? 'translate-x-0' : '-translate-x-full'
-      } md:translate-x-0 md:relative md:z-auto`}
+      } md:relative md:z-auto`}
       aria-hidden={!open}
       aria-label="Sidebar navigation"
     >
@@ -115,7 +115,9 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
             {userInfo.icon}
           </div>
           <div className="flex-1">
-            <div className="font-semibold text-slate-800 text-sm">{userInfo.name}</div>
+            <div className="font-semibold text-slate-800 text-sm">
+              {userInfo.name}
+            </div>
             <div className="text-slate-500 text-xs uppercase tracking-wider">
               {userInfo.role}
             </div>
