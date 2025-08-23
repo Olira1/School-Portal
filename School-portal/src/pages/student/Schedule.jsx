@@ -193,7 +193,7 @@ const Schedule = () => {
   }
 
   return (
-    <div className="schedule">
+    <div className="schedule w-full">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-semibold text-slate-800 m-0">Schedule</h1>
         <div className="flex gap-2">

@@ -60,7 +60,7 @@ const Home = () => {
   }
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="w-full">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">{greeting()}, Emma</h1>

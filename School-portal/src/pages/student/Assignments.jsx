@@ -116,7 +116,7 @@ const Assignments = () => {
   }
 
   return (
-    <div className="assignments">
+    <div className="assignments w-full">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-semibold text-slate-800 m-0">
           Assignments

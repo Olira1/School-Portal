@@ -31,7 +31,7 @@ const ParentLayout = () => {
           sidebarOpen={sidebarOpen}
           portalType="parent"
         />
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto p-6">
           <Outlet />
         </main>
       </div>

@@ -53,7 +53,7 @@ const Grades = () => {
   )
 
   return (
-    <div className="grades">
+    <div className="grades w-full">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-slate-800 m-0">Grades</h1>
         <div className="flex gap-2">

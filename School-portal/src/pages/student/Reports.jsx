@@ -11,7 +11,7 @@ const Reports = () => {
   const dist = [5, 9, 12, 8, 3]
 
   return (
-    <div className="reports">
+    <div className="reports w-full">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-slate-800 m-0">Reports</h1>
         <div className="flex gap-2">
