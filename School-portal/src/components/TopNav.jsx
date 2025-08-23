@@ -2,33 +2,38 @@ import React, { useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-const TopNav = ({ onToggleSidebar, sidebarOpen = false, portalType = 'student' }) => {
+const TopNav = ({
+  onToggleSidebar,
+  sidebarOpen = false,
+  portalType = 'student',
+}) => {
   const navigate = useNavigate()
   const { logout } = useAuth()
-  
+
   const getContextInfo = () => {
     const d = new Date()
     const weekday = d.toLocaleDateString(undefined, { weekday: 'long' })
-    
+
     if (portalType === 'parent') {
-      return { 
-        weekday, 
-        childrenCount: 2, 
+      return {
+        weekday,
+        childrenCount: 2,
         parentName: 'Sarah Johnson',
-        homePath: '/parent'
+        homePath: '/parent',
       }
     }
-    
+
     // Default student context
-    return { 
-      weekday, 
-      grade: 'Grade9B', 
+    return {
+      weekday,
+      grade: 'Grade9B',
       studentName: 'Emma',
-      homePath: '/student'
+      homePath: '/student',
     }
   }
 
-  const { weekday, childrenCount, parentName, grade, studentName, homePath } = getContextInfo()
+  const { weekday, childrenCount, parentName, grade, studentName, homePath } =
+    getContextInfo()
 
   return (
     <header
@@ -38,7 +43,7 @@ const TopNav = ({ onToggleSidebar, sidebarOpen = false, portalType = 'student' }
     >
       <div className="flex items-center gap-3">
         <button
-          className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-300 bg-white hover:bg-slate-50 md:hidden"
+          className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-300 bg-white hover:bg-slate-50 hover:border-slate-400 transition-colors"
           aria-label="Open menu"
           aria-expanded={sidebarOpen}
           onClick={onToggleSidebar}
@@ -55,7 +60,12 @@ const TopNav = ({ onToggleSidebar, sidebarOpen = false, portalType = 'student' }
         </Link>
       </div>
       <div className="flex-1" />
-      <div className="flex items-center gap-2" aria-label={portalType === 'parent' ? 'Parent context' : 'Student context'}>
+      <div
+        className="flex items-center gap-2"
+        aria-label={
+          portalType === 'parent' ? 'Parent context' : 'Student context'
+        }
+      >
         {portalType === 'parent' ? (
           <>
             <span
