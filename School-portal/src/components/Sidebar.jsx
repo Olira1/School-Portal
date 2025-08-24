@@ -20,6 +20,18 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
       ]
     }
 
+    if (portalType === 'teacher') {
+      return [
+        { path: '/teacher', label: 'Home', icon: '🏠' },
+        { path: '/teacher/classes', label: 'Classes & Subjects', icon: '👥' },
+        { path: '/teacher/assignments', label: 'Assignments', icon: '📝' },
+        { path: '/teacher/grades', label: 'Grades', icon: '📊' },
+        { path: '/teacher/attendance', label: 'Attendance', icon: '✅' },
+        { path: '/teacher/resources', label: 'Resources', icon: '📂' },
+        { path: '/teacher/communication', label: 'Communication', icon: '💬' },
+      ]
+    }
+
     // Default student navigation
     return [
       { path: '/student', label: 'Home', icon: '🏠' },
@@ -48,15 +60,25 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
   }
 
   const getPortalTitle = () => {
-    return portalType === 'parent' ? 'Parent Portal' : 'Student Portal'
+    if (portalType === 'parent') return 'Parent Portal'
+    if (portalType === 'teacher') return 'Teacher Portal'
+    return 'Student Portal'
   }
 
   const getUserInfo = () => {
     if (portalType === 'parent') {
       return {
-        name: 'Parent',
+        name: 'Sarah Johnson',
         role: 'Guardian',
         icon: '👨‍👩‍👧‍👦',
+      }
+    }
+
+    if (portalType === 'teacher') {
+      return {
+        name: 'Mr. Johnson',
+        role: 'Teacher',
+        icon: '👨‍🏫',
       }
     }
 
@@ -71,9 +93,7 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
 
   return (
     <aside
-      className={`w-[280px] bg-white border-r border-slate-200 flex flex-col h-screen flex-shrink-0 transition-transform duration-200 ease-in-out z-50 ${
-        open ? 'translate-x-0' : '-translate-x-full'
-      } md:relative md:z-auto`}
+      className={`w-[280px] bg-white border-r border-slate-200 flex flex-col h-screen flex-shrink-0 transition-transform duration-300 ease-in-out z-50 shadow-lg md:relative md:z-auto`}
       aria-hidden={!open}
       aria-label="Sidebar navigation"
     >
@@ -92,16 +112,16 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
                 <Link
                   to={item.path}
                   onClick={handleClick}
-                  className={`flex items-center px-6 py-3 rounded-r-lg mr-4 no-underline transition-colors text-sm font-medium ${
+                  className={`flex items-center px-6 py-3 rounded-r-lg mr-4 no-underline transition-all duration-200 text-sm font-medium ${
                     active
-                      ? 'bg-blue-100 text-blue-800'
-                      : 'text-slate-500 hover:bg-slate-100 hover:text-slate-600'
+                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-500 shadow-sm'
+                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-800 hover:border-r-2 hover:border-slate-300'
                   }`}
                 >
                   <span className="text-xl mr-3 w-6 text-center">
                     {item.icon}
                   </span>
-                  <span>{item.label}</span>
+                  <span className="font-medium">{item.label}</span>
                 </Link>
               </li>
             )
@@ -109,23 +129,23 @@ const Sidebar = ({ open = true, onNavigate, portalType = 'student' }) => {
         </ul>
       </nav>
 
-      <div className="p-6 border-t border-slate-200">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-xl">
+      <div className="p-6 border-t border-slate-200 bg-slate-50">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-xl shadow-md">
             {userInfo.icon}
           </div>
           <div className="flex-1">
             <div className="font-semibold text-slate-800 text-sm">
               {userInfo.name}
             </div>
-            <div className="text-slate-500 text-xs uppercase tracking-wider">
+            <div className="text-slate-500 text-xs uppercase tracking-wider font-medium">
               {userInfo.role}
             </div>
           </div>
         </div>
         <button
           onClick={handleLogout}
-          className="mt-4 w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md border border-red-200 text-red-700 hover:bg-red-50 text-sm font-medium"
+          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 hover:border-red-300 text-sm font-medium transition-colors duration-200"
           aria-label="Log out"
         >
           ⎋ Logout

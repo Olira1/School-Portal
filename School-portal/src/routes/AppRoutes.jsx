@@ -33,11 +33,13 @@ import ParentReports from '../pages/parent/Reports'
 import ParentCommunication from '../pages/parent/Communication'
 
 // Teacher Pages
-import TeacherDashboard from '../pages/teacher/Dashboard'
+import TeacherHome from '../pages/teacher/Home'
+import TeacherClasses from '../pages/teacher/Classes'
 import TeacherAssignments from '../pages/teacher/Assignments'
 import TeacherAttendance from '../pages/teacher/Attendance'
 import TeacherGrades from '../pages/teacher/Grades'
 import TeacherResources from '../pages/teacher/Resources'
+import TeacherCommunication from '../pages/teacher/Communication'
 
 // School Head Pages
 import SchoolHeadDashboard from '../pages/schoolhead/Dashboard'
@@ -89,11 +91,13 @@ const AppRoutes = () => {
 
       {/* Teacher Routes */}
       <Route path="/teacher" element={<TeacherLayout />}>
-        <Route index element={<TeacherDashboard />} />
+        <Route index element={<TeacherHome />} />
+        <Route path="classes" element={<TeacherClasses />} />
         <Route path="assignments" element={<TeacherAssignments />} />
         <Route path="attendance" element={<TeacherAttendance />} />
         <Route path="grades" element={<TeacherGrades />} />
         <Route path="resources" element={<TeacherResources />} />
+        <Route path="communication" element={<TeacherCommunication />} />
       </Route>
 
       {/* School Head Routes */}
